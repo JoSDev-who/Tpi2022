@@ -125,12 +125,18 @@ public class EstadoBeanTest {
         Long resultado = cut.contar();
         assertNotNull(resultado);
         assertEquals(esperado, resultado);
+
+//        EstadoBean espia = Mockito.spy(EstadoBean.class);
+//        espia.em = mockEM;
+//
+//        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
         try {
             cut.em = null;
             cut.contar();
             fail("em null");
         } catch (Exception e) {
         }
+//        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
 
     }
 
@@ -140,6 +146,16 @@ public class EstadoBeanTest {
     @Test
     public void testModificar() throws Exception {
         System.out.println("Modificar");
+
+        //fail("esto va a fallar");
+    }
+
+    /**
+     * Test of Eliminar method, of class EstadoBean.
+     */
+    @Test
+    public void testeliminar() throws Exception {
+        System.out.println("eliminar");
         EntityManager mockEM = Mockito.mock(EntityManager.class);
         EstadoBean cut = new EstadoBean();
         cut.em = mockEM;
@@ -155,24 +171,13 @@ public class EstadoBeanTest {
 
         }
         try {
-            cut.em=null;
+            cut.em = null;
             cut.eliminar(eliminado);
             fail("el entity era nulo");
 
         } catch (IllegalStateException e) {
 
         }
-
-        //fail("esto va a fallar");
-
-    }
-
-    /**
-     * Test of Eliminar method, of class EstadoBean.
-     */
-    @Test
-    public void testEliminar() throws Exception {
-        System.out.println("Eliminar");
 
     }
 

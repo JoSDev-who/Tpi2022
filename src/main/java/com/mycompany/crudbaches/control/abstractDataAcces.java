@@ -148,27 +148,27 @@ public abstract class abstractDataAcces<T> implements Serializable {
 
     }
 
-    public void Eliminar(int id) throws IllegalArgumentException, IllegalStateException {
-        if (id != 0) {
-            EntityManager em = null;
-            try {
-                em = this.getEntityManager();
-            } catch (Exception e) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "entity nulo");
-            }
-            if (em != null) {
-                //codigo para Eliminar
-                T edit = (T) em.find(clase, id);
-                em.remove(edit);
-                return;
-            } else {
-                throw new IllegalStateException();
-            }
-
-        }
-        throw new IllegalArgumentException();
-
-    }
+//    public void Eliminar(int id) throws IllegalArgumentException, IllegalStateException {
+//        if (id != 0) {
+//            EntityManager em = null;
+//            try {
+//                em = this.getEntityManager();
+//            } catch (Exception e) {
+//                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "entity nulo");
+//            }
+//            if (em != null) {
+//                //codigo para Eliminar
+//                T edit = (T) em.find(clase, id);
+//                em.remove(edit);
+//                return;
+//            } else {
+//                throw new IllegalStateException();
+//            }
+//
+//        }
+//        throw new IllegalArgumentException();
+//
+//    }
 
     public void eliminar(T registro) throws IllegalArgumentException, IllegalStateException {
         if (registro != null) {
