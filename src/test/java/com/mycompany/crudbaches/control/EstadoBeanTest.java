@@ -10,8 +10,12 @@ import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 /**
@@ -54,133 +58,130 @@ public class EstadoBeanTest {
     @Test
     public void testFindByid() throws Exception {
         System.out.println("findByid");
-        Object id = new Object();
+        Integer id = 1;
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        Estado esperado = new Estado();
         EstadoBean cut = new EstadoBean();
+
+        Mockito.when(mockEM.find(Estado.class, id)).thenReturn(esperado);
         assertThrows(IllegalArgumentException.class, () -> {
             cut.findByid(null);
         });
         assertThrows(IllegalStateException.class, () -> {
             cut.findByid(id);
         });
-        EntityManager mockEM = Mockito.mock(EntityManager.class);
         cut.em = mockEM;
-        cut.findByid(id);
+        Estado Encontrado = cut.findByid(id);
+        assertNotNull(Encontrado);
+        assertEquals(esperado, Encontrado);
 
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+//        EstadoBean espia = Mockito.spy(EstadoBean.class);
+//        espia.em = mockEM;
+//        espia.findByid(id);
+//        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+//        Mockito.verify(espia, Mockito.times(1)).getEntityManager();
     }
 
     /**
      * Test of findAll method, of class EstadoBean.
-//     */
-//    @Test
-//    public void testFindAll() throws Exception {
-//        System.out.println("findAll");
-//        EstadoBean cut = new EstadoBean();
-//        assertThrows(IllegalStateException.class, () -> {
-//            cut.findAll();
-//        });
-//        
-//        EntityManager mockEM = Mockito.mock(EntityManager.class);
-//        cut.em = mockEM;
-//      
-//        
-//
-//    }
-//
-//    /**
-//     * Test of findRange method, of class EstadoBean.
-//     */
-//    @Test
-//    public void testFindRange() throws Exception {
-//        System.out.println("findRange");
-//        int frist = 0;
-//        int pageSize = 0;
-//        EstadoBean cut = new EstadoBean();
-//        assertThrows(IllegalStateException.class, () -> {
-//            cut.findRange(frist, pageSize);
-//        });
-//        
-//        EntityManager mockEM = Mockito.mock(EntityManager.class);
-//        cut.em = mockEM;
-//        cut.findRange(frist, pageSize);
-//    }
-//
-//    /**
-//     * Test of contar method, of class EstadoBean.
-//     */
-//    @Test
-//    public void testContar() throws Exception {
-//        System.out.println("contar");
-//        EstadoBean cut = new EstadoBean();
-//        assertThrows(IllegalStateException.class, () -> {
-//            cut.contar();
-//        });
-//        
-//        EntityManager mockEM = Mockito.mock(EntityManager.class);
-//        cut.em = mockEM;
-//        cut.contar();
-//    }
-//
-//    /**
-//     * Test of Modificar method, of class EstadoBean.
-//     */
-//    @Test
-//    public void testModificar() throws Exception {
-//        System.out.println("Modificar");
-//        long id = 0L;
-//        Estado nuevo = new Estado();
-//        EstadoBean cut = new EstadoBean();
-//        assertThrows(IllegalArgumentException.class, () -> {
-//            cut.Modificar(null,id);
-//        });
-//        assertThrows(IllegalStateException.class, () -> {
-//            cut.Modificar(nuevo,id);
-//        });
-//        EntityManager mockEM = Mockito.mock(EntityManager.class);
-//        cut.em = mockEM;
-//        cut.Modificar(nuevo,id);
-//        //EJBContainer contain
-//    }
-//
-//    /**
-//     * Test of Eliminar method, of class EstadoBean.
-//     */
-//    @Test
-//    public void testEliminar() throws Exception {
-//        System.out.println("Eliminar");
-//        int id = 0;
-//        Estado nuevo = new Estado();
-//        EstadoBean cut = new EstadoBean();
-//        assertThrows(IllegalArgumentException.class, () -> {
-//            cut.Eliminar(0);
-//        });
-//        assertThrows(IllegalStateException.class, () -> {
-//            cut.Eliminar(id);
-//        });
-//        EntityManager mockEM = Mockito.mock(EntityManager.class);
-//        cut.em = mockEM;
-//        cut.Eliminar(id);
-//    }
-//
-//    /**
-//     * Test of getEntityManager method, of class EstadoBean.
-//     */
-//
-//    /**
-//     * Test of getEntityManager method, of class EstadoBean.
-//     */
-////    @Test
-////    public void testGetEntityManager() throws Exception {
-////        System.out.println("getEntityManager");
-////        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-////        EstadoBean instance = (EstadoBean)container.getContext().lookup("java:global/classes/EstadoBean");
-////        EntityManager expResult = null;
-////        EntityManager result = instance.getEntityManager();
-////        assertEquals(expResult, result);
-////        container.close();
-////        // TODO review the generated test code and remove the default call to fail.
-////        fail("The test case is a prototype.");
-////    }
-////    
+     */
+    @Test
+    public void testFindAll() throws Exception {
+        System.out.println("findAll");
+
+    }
+
+    /**
+     * Test of findRange method, of class EstadoBean.
+     */
+    @Test
+    public void testFindRange() throws Exception {
+        System.out.println("findRange");
+
+    }
+
+    /**
+     * Test of contar method, of class EstadoBean.
+     */
+    @Test
+    public void testContar() throws Exception {
+        System.out.println("contar");
+        Long esperado = Long.valueOf(1);
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        CriteriaBuilder mockCB = Mockito.mock(CriteriaBuilder.class);
+        CriteriaQuery mockCQ = Mockito.mock(CriteriaQuery.class);
+        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
+
+        Mockito.when(mockEM.getCriteriaBuilder()).thenReturn(mockCB);
+        Mockito.when(mockCB.createQuery(Long.class)).thenReturn(mockCQ);
+        Mockito.when(mockEM.createQuery(mockCQ)).thenReturn(mockTQ);
+        Mockito.when(mockTQ.getSingleResult()).thenReturn(esperado);
+
+        EstadoBean cut = new EstadoBean();
+        assertThrows(IllegalArgumentException.class, () -> {
+            cut.contar();
+        });
+        cut.em = mockEM;
+        Long resultado = cut.contar();
+        assertNotNull(resultado);
+        assertEquals(esperado, resultado);
+        try {
+            cut.em = null;
+            cut.contar();
+            fail("em null");
+        } catch (Exception e) {
+        }
+
+    }
+
+    /**
+     * Test of Modificar method, of class EstadoBean.
+     */
+    @Test
+    public void testModificar() throws Exception {
+        System.out.println("Modificar");
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        EstadoBean cut = new EstadoBean();
+        cut.em = mockEM;
+        Estado eliminado = new Estado(1);
+        cut.eliminar(eliminado);
+        Mockito.verify(mockEM, Mockito.times(1)).remove(Matchers.any());
+
+        try {
+            cut.eliminar(null);
+            fail("el argumento era nulo");
+
+        } catch (IllegalArgumentException e) {
+
+        }
+        try {
+            cut.em=null;
+            cut.eliminar(eliminado);
+            fail("el entity era nulo");
+
+        } catch (IllegalStateException e) {
+
+        }
+
+        //fail("esto va a fallar");
+
+    }
+
+    /**
+     * Test of Eliminar method, of class EstadoBean.
+     */
+    @Test
+    public void testEliminar() throws Exception {
+        System.out.println("Eliminar");
+
+    }
+
+    /**
+     * Test of getEntityManager method, of class EstadoBean.
+     */
+    @Test
+    public void testGetEntityManager() throws Exception {
+        System.out.println("getEntityManager");
+
+    }
 }

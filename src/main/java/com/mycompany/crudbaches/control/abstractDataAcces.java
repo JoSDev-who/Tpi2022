@@ -136,8 +136,8 @@ public abstract class abstractDataAcces<T> implements Serializable {
             }
             if (em != null) {
                 //codigo para modificar
-                T edit=(T) em.find(clase,id);
-                edit=em.merge(nuevo);
+                T edit = (T) em.find(clase, id);
+                edit = em.merge(nuevo);
                 return;
             } else {
                 throw new IllegalStateException();
@@ -158,7 +158,7 @@ public abstract class abstractDataAcces<T> implements Serializable {
             }
             if (em != null) {
                 //codigo para Eliminar
-                T edit=(T) em.find(clase,id);
+                T edit = (T) em.find(clase, id);
                 em.remove(edit);
                 return;
             } else {
@@ -168,6 +168,26 @@ public abstract class abstractDataAcces<T> implements Serializable {
         }
         throw new IllegalArgumentException();
 
+    }
+
+    public void eliminar(T registro) throws IllegalArgumentException, IllegalStateException {
+        if (registro != null) {
+            EntityManager em = null;
+            try {
+                em = getEntityManager();
+            } catch (Exception e) {
+            }
+            if (em != null) {
+                if (!em.contains(registro)) {
+                    registro = em.merge(registro);
+                }
+                em.remove(registro);
+                return;
+            }
+            throw new IllegalStateException("entity null");
+
+        }
+        throw new IllegalArgumentException("objeto null");
     }
 
 }
