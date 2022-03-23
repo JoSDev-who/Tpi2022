@@ -44,6 +44,15 @@ public class EstadoBeanTest {
         EntityManager mockEM = Mockito.mock(EntityManager.class);
         cut.em = mockEM;
         cut.crear(nuevo);
+        EstadoBean espia = Mockito.spy(EstadoBean.class);
+        espia.em = mockEM;
+
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+                try {
+            espia.crear(nuevo);
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
         //EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         //EstadoBean instance = (EstadoBean)container.getContext().lookup("java:global/classes/EstadoBean");
 
@@ -56,38 +65,43 @@ public class EstadoBeanTest {
      * Test of findByid method, of class EstadoBean.
      */
     @Test
-    public void testFindByid() throws Exception {
-        System.out.println("findByid");
+    public void testFindById(){
+        System.out.println("findById");
         Integer id = 1;
-        EntityManager mockEM = Mockito.mock(EntityManager.class);
-        Estado esperado = new Estado();
+        EntityManager mockEM=Mockito.mock(EntityManager.class);
         EstadoBean cut = new EstadoBean();
-
+        Estado esperado = new Estado();
         Mockito.when(mockEM.find(Estado.class, id)).thenReturn(esperado);
         assertThrows(IllegalArgumentException.class, () -> {
             cut.findByid(null);
         });
-        assertThrows(IllegalStateException.class, () -> {
+        assertThrows(IllegalStateException.class, ()->{
             cut.findByid(id);
         });
-        cut.em = mockEM;
-        Estado Encontrado = cut.findByid(id);
-        assertNotNull(Encontrado);
-        assertEquals(esperado, Encontrado);
-
-//        EstadoBean espia = Mockito.spy(EstadoBean.class);
-//        espia.em = mockEM;
-//        espia.findByid(id);
-//        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
-//        Mockito.verify(espia, Mockito.times(1)).getEntityManager();
+        
+        cut.em=mockEM;
+        Estado encontrado = cut.findByid(id);
+        assertNotNull(encontrado);
+        assertEquals(esperado, encontrado );
+        
+        EstadoBean espia = Mockito.spy(EstadoBean.class);
+        espia.em=mockEM;
+        
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.findByid(id);
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
+        
     }
-
     /**
      * Test of findAll method, of class EstadoBean.
      */
     @Test
     public void testFindAll() throws Exception {
         System.out.println("findAll");
+        
 
     }
 
@@ -111,49 +125,72 @@ public class EstadoBeanTest {
         CriteriaBuilder mockCB = Mockito.mock(CriteriaBuilder.class);
         CriteriaQuery mockCQ = Mockito.mock(CriteriaQuery.class);
         TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
-
+        
         Mockito.when(mockEM.getCriteriaBuilder()).thenReturn(mockCB);
         Mockito.when(mockCB.createQuery(Long.class)).thenReturn(mockCQ);
         Mockito.when(mockEM.createQuery(mockCQ)).thenReturn(mockTQ);
         Mockito.when(mockTQ.getSingleResult()).thenReturn(esperado);
-
         EstadoBean cut = new EstadoBean();
-        assertThrows(IllegalArgumentException.class, () -> {
+        
+        assertThrows(IllegalArgumentException.class, ()->{
             cut.contar();
         });
+        
         cut.em = mockEM;
         Long resultado = cut.contar();
         assertNotNull(resultado);
         assertEquals(esperado, resultado);
-
-//        EstadoBean espia = Mockito.spy(EstadoBean.class);
-//        espia.em = mockEM;
-//
-//        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        
+        
+        EstadoBean espia = Mockito.spy(EstadoBean.class);
+        espia.em=mockEM;
+        
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
         try {
-            cut.em = null;
-            cut.contar();
-            fail("em null");
+            espia.contar();
         } catch (Exception e) {
         }
-//        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
-
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
+        
     }
-
     /**
      * Test of Modificar method, of class EstadoBean.
      */
-    @Test
+  @Test
     public void testModificar() throws Exception {
         System.out.println("Modificar");
+        int id=1;
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        
+        Estado nuevo=new Estado(2);
+        EstadoBean cut=new EstadoBean();
 
-        //fail("esto va a fallar");
+        
+        assertThrows(IllegalArgumentException.class, ()->{
+        cut.Modificar(null, id);
+        });
+
+        assertThrows(IllegalStateException.class, ()->{
+        cut.Modificar(nuevo, id);
+        });
+
+        cut.em=mockEM;
+        cut.Modificar(nuevo, id);
+
+        EstadoBean espia = Mockito.spy(EstadoBean.class);
+        espia.em=mockEM;
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.Modificar(nuevo, id);
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
     }
 
     /**
      * Test of Eliminar method, of class EstadoBean.
      */
-    @Test
+   @Test
     public void testeliminar() throws Exception {
         System.out.println("eliminar");
         EntityManager mockEM = Mockito.mock(EntityManager.class);
@@ -178,9 +215,17 @@ public class EstadoBeanTest {
         } catch (IllegalStateException e) {
 
         }
+        
+        EstadoBean espia = Mockito.spy(EstadoBean.class);
+        espia.em=mockEM;
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.eliminar(eliminado);
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
 
     }
-
     /**
      * Test of getEntityManager method, of class EstadoBean.
      */
