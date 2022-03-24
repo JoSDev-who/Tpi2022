@@ -16,8 +16,12 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 
 @ExtendWith(ArquillianExtension.class)
+@TestMethodOrder(OrderAnnotation.class)
 public class EstadoIT {
 
     @Deployment
@@ -38,18 +42,20 @@ public class EstadoIT {
     EstadoBean cut;
 
     @Test
+    @Order(1)
     public void testCrear() {
         System.out.println("Crear");
         assertNotNull(cut);
         Estado nuevo = new Estado();
         nuevo.setNombre("creado IT " + System.currentTimeMillis());
         cut.crear(nuevo);
-        System.out.println("jalo");
+       
 
     }
 
 
     @Test
+    @Order(7)
     public void testFindByid() {
         System.out.println("FindId");
         assertNotNull(cut);
@@ -61,6 +67,7 @@ public class EstadoIT {
     }
     
     @Test
+    @Order(2)
     public void testModificar() {
         System.out.println("Modificar");
 
@@ -68,13 +75,14 @@ public class EstadoIT {
         int id = 4;
         Estado nuevo = new Estado();
         nuevo.setIdEstado(id);
-        nuevo.setNombre("holadsdsdsd");
-        System.out.println("Modificar Estado nuevo " + nuevo);
+        nuevo.setNombre("modificado prueba 4");
+       
         cut.Modificar(nuevo);
         System.out.println("Paso Modificar " + cut.findByid(id));
     }
 
     @Test
+    @Order(3)
     public void testFindAll() {
         System.out.println("findAll");
         assertNotNull(cut);
@@ -85,6 +93,7 @@ public class EstadoIT {
     }
 
     @Test
+    @Order(4)
     public void testFindRange() {
         System.out.println("FindRange");
         assertNotNull(cut);
@@ -98,6 +107,7 @@ public class EstadoIT {
     }
 
     @Test
+    @Order(6)
     public void testContar() {
         System.out.println("Contar");
         assertNotNull(cut);
@@ -108,6 +118,7 @@ public class EstadoIT {
     }
 
     @Test
+    @Order(5)
     public void testEliminar() {
         System.out.println("Eliminar");
         assertNotNull(cut);
