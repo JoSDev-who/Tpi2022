@@ -6,6 +6,7 @@
 package com.mycompany.crudbaches.control;
 
 import com.mycompany.crudbaches.entity.Estado;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
 
@@ -92,44 +93,90 @@ public class EstadoBeanTest {
 
     }
 
-    @Test
     public void testFindAll() throws Exception {
         System.out.println("findAll");
-//
-//        EstadoBean cut = new EstadoBean();
-//        EstadoBean aa = Mockito.mock(EstadoBean.class);
-//
-//        assertThrows(IllegalStateException.class, () -> {
-//            cut.findAll();
-//        });
-//        
-//        
-//        List esperado = Mockito.mock(List.class);
-//        EntityManager mockEM = Mockito.mock(EntityManager.class);
-//        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
-//        List mockList = Mockito.mock(List.class);
-//
-//        Mockito.when(cut.generarConsultaBase(mockEM)).thenReturn(mockTQ);
-//        Mockito.when(mockTQ.getResultList()).thenReturn(esperado);
-// 
-//        cut.em = mockEM;
-//        List<Estado> encontrado = cut.findAll();
-//        assertNotNull(encontrado);
-        //assertEquals(esperado, encontrado);
+
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        CriteriaBuilder mockCB = Mockito.mock(CriteriaBuilder.class);
+        CriteriaQuery mockCQ = Mockito.mock(CriteriaQuery.class);
+        Root mockR = Mockito.mock(Root.class);
+        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
+
+        Mockito.when(mockEM.getCriteriaBuilder()).thenReturn(mockCB);
+        Mockito.when(mockCB.createQuery(Mockito.any())).thenReturn(mockCQ);
+        Mockito.when(mockCQ.from(Object.class)).thenReturn(mockR);
+        Mockito.when(mockEM.createQuery(mockCQ)).thenReturn(mockTQ);
+        Mockito.when(mockTQ.getResultList()).thenReturn(null);
+
+        EstadoBean cut = new EstadoBean();
+
+        assertThrows(IllegalStateException.class, () -> {
+            cut.findAll();
+        });
+
+        EstadoBean espia = Mockito.spy(EstadoBean.class);
+        espia.em = mockEM;
+
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.findAll();
+        } catch (Exception e) {
+        }
+
+        Mockito.verify(espia, Mockito.times(1)).getEntityManager();
+
+        cut.em = mockEM;
+        cut.findAll();
+
+        Mockito.when(mockTQ.getResultList()).thenReturn(new ArrayList());
+        cut.findAll();
+        
+        
+//      assertNotNull(lista);
+        
+
+        
     }
 
-    @Test
     public void testFindRange() throws Exception {
         System.out.println("findRange");
-//        int frist = 0, pageSize = 0;
-//        EstadoBean cut = new EstadoBean();
-//
-//        assertThrows(IllegalStateException.class, () -> {
-//            cut.findRange(frist, pageSize);
-//        });
+        
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        CriteriaBuilder mockCB = Mockito.mock(CriteriaBuilder.class);
+        CriteriaQuery mockCQ = Mockito.mock(CriteriaQuery.class);
+        Root mockR = Mockito.mock(Root.class);
+        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
+        
+        Mockito.when(mockEM.getCriteriaBuilder()).thenReturn(mockCB);
+        Mockito.when(mockCB.createQuery(Mockito.any())).thenReturn(mockCQ);
+        Mockito.when(mockCQ.from(Object.class)).thenReturn(mockR);
+        Mockito.when(mockEM.createQuery(mockCQ)).thenReturn(mockTQ);
+        Mockito.when(mockTQ.getResultList()).thenReturn(null);
+        
+        EstadoBean cut = new EstadoBean();
 
+        assertThrows(IllegalStateException.class, ()->{
+            cut.findRange(1, 2);
+        });
+        
+        EstadoBean espia = Mockito.spy(EstadoBean.class);
+        espia.em = mockEM;
+
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.findRange(1, 2);
+        } catch (Exception e) {
+        }
+
+        Mockito.verify(espia, Mockito.times(1)).getEntityManager();
+        
+        cut.em = mockEM;
+        cut.findRange(1, 2);
+
+        Mockito.when(mockTQ.getResultList()).thenReturn(new ArrayList());
+        cut.findRange(1, 2);
+        
     }
-
     @Test
     public void testContar() throws Exception {
         System.out.println("contar");
@@ -167,42 +214,7 @@ public class EstadoBeanTest {
 
     }
 
-    @Test
-    public void testGenerarConsultaBase() throws Exception {
-        System.out.println("Generar consulta base");
-        EstadoBean cut = new EstadoBean();
 
-        EntityManager mockEM = Mockito.mock(EntityManager.class);
-        CriteriaBuilder mockCB = Mockito.mock(CriteriaBuilder.class);
-        CriteriaQuery mockCQ = Mockito.mock(CriteriaQuery.class);
-        Root<Estado> mockRoot = Mockito.mock(Root.class);
-        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
-        TypedQuery esperado = mockEM.createQuery(mockCQ);
-
-        assertThrows(IllegalStateException.class, () -> {
-            cut.generarConsultaBase(mockEM);
-
-        });
-
-        Mockito.when(mockEM.getCriteriaBuilder()).thenReturn(mockCB);
-        Mockito.when(mockCB.createQuery(Estado.class)).thenReturn(mockCQ);
-        Mockito.when(mockCQ.from(Estado.class)).thenReturn(mockRoot);
-        
-
-//        Mockito.when(mockTQ.getSingleResult()).thenReturn(esperado);
-//        
-//
-//        //cut.em = mockEM;
-//        
-//        TypedQuery resultado=cut.generarConsultaBase(mockEM);
-//        assertNotNull(resultado);
-//        assertEquals(esperado, resultado);
-//        
-    }
-
-    /**
-     * Test of Modificar method, of class EstadoBean.
-     */
     @Test
     public void testModificar() throws Exception {
         System.out.println("Modificar");
