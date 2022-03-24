@@ -92,7 +92,7 @@ public class EstadoBeanTest {
         Mockito.verify(espia, Mockito.times(1)).getEntityManager();
 
     }
-
+    @Test
     public void testFindAll() throws Exception {
         System.out.println("findAll");
 
@@ -137,7 +137,7 @@ public class EstadoBeanTest {
 
         
     }
-
+    @Test
     public void testFindRange() throws Exception {
         System.out.println("findRange");
         
@@ -225,21 +225,21 @@ public class EstadoBeanTest {
         EstadoBean cut = new EstadoBean();
 
         assertThrows(IllegalArgumentException.class, () -> {
-            cut.Modificar(null, id);
+            cut.Modificar(null);
         });
 
         assertThrows(IllegalStateException.class, () -> {
-            cut.Modificar(nuevo, id);
+            cut.Modificar(nuevo);
         });
 
         cut.em = mockEM;
-        cut.Modificar(nuevo, id);
+        cut.Modificar(nuevo);
 
         EstadoBean espia = Mockito.spy(EstadoBean.class);
         espia.em = mockEM;
         Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
         try {
-            espia.Modificar(nuevo, id);
+            espia.Modificar(nuevo);
         } catch (Exception e) {
         }
         Mockito.verify(espia, Mockito.times(1)).getEntityManager();
