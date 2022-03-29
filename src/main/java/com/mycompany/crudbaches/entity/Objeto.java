@@ -32,8 +32,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Objeto.findAll", query = "SELECT o FROM Objeto o"),
     @NamedQuery(name = "Objeto.findByIdObjeto", query = "SELECT o FROM Objeto o WHERE o.idObjeto = :idObjeto"),
     @NamedQuery(name = "Objeto.findByLongitud", query = "SELECT o FROM Objeto o WHERE o.longitud = :longitud"),
-    @NamedQuery(name = "Objeto.findByTipoObjeto", query = "SELEC o FROM Objeto o WHERE o.idTipoObjeto =:idTipoObjeto ORDER BY o.nombre ASC"),
-    @NamedQuery(name = "Objeto.countByTipoObjeto", query = "SELEC COUNT(o.idObjeto) FROM Objeto o JOIN o.idTipoObjeto t WHERE t.idTipoObjeto = :idTipoObjeto"),
+    @NamedQuery(name = "Objeto.findByTipoObjeto", query = "SELECT o FROM Objeto o WHERE o.idTipoObjeto =:idTipoObjeto ORDER BY o.nombre ASC"),
+    @NamedQuery(name = "Objeto.countByTipoObjeto", query = "SELECT COUNT(o.idObjeto) FROM Objeto o JOIN o.idTipoObjeto t WHERE t.idTipoObjeto = :idTipoObjeto"),
     @NamedQuery(name = "Objeto.findByLatitud", query = "SELECT o FROM Objeto o WHERE o.latitud = :latitud"),
     @NamedQuery(name = "Objeto.findByNombre", query = "SELECT o FROM Objeto o WHERE o.nombre = :nombre"),
     @NamedQuery(name = "Objeto.findByObservaciones", query = "SELECT o FROM Objeto o WHERE o.observaciones = :observaciones")})
