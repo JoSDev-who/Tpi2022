@@ -27,7 +27,7 @@ public class EstadoIT {
     @Deployment
     public static WebArchive crearDespliegue() {
         WebArchive salida = ShrinkWrap.create(WebArchive.class)
-                .addPackage("sv.edu.ues.occ.ingenieria.tpi135.bachestpi.resources.entity")
+                .addPackage("com.mycompany.cudbaches.entity")
                 .addAsResource("persistence-arquillian.xml")
                 .addClass(abstractDataAcces.class)
                 .addClass(EstadoBean.class)
