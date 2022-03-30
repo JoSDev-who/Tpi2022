@@ -29,7 +29,11 @@ public class TipoObjetoResource {
     @Produces({"application/json; charset=UTF-8"})
     public Response findAll(){
         List<TipoObjeto> registros = toBean.findAll();
-        return Response.ok(registros).build();
+        Long total=toBean.contar();
+        
+        return Response.ok(registros)
+                .header("Total-Registro", total)
+                .build();
     
     
     }

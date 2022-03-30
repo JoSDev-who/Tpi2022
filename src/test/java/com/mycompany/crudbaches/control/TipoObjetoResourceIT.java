@@ -55,11 +55,11 @@ public class TipoObjetoResourceIT {
     @RunAsClient
     public void testFinAll() {
         System.out.println("findAll");
-//        int resultadoEsperado = 200;
-//        Client cliente=ClientBuilder.newClient();
-//        WebTarget target = cliente.target(url.toString() + "resources/");
-//        Response respuesta = target.path("tipoobjeto").request("application/json").get();
-//        Assertions.assertEquals(resultadoEsperado,respuesta);
+        int resultadoEsperado = 200;
+        Client cliente=ClientBuilder.newClient();
+        WebTarget target = cliente.target(url.toString() + "resources/");
+        Response respuesta = target.path("tipoobjeto").request("application/json").get();
+        Assertions.assertEquals(resultadoEsperado,respuesta.getStatus());
     }
 
 }
