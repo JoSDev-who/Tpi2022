@@ -6,9 +6,16 @@
 package com.mycompany.crudbaches.control;
 
 
+
 import com.mycompany.crudbaches.JAXRSConfiguration;
 import com.mycompany.crudbaches.resources.TipoObjetoResource;
+import java.io.StringReader;
+
 import java.net.URL;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 
@@ -60,6 +67,18 @@ public class TipoObjetoResourceIT {
         WebTarget target = cliente.target(url.toString() + "resources/");
         Response respuesta = target.path("tipoobjeto").request("application/json").get();
         Assertions.assertEquals(resultadoEsperado,respuesta.getStatus());
+//        String TotalTexto = respuesta.getHeaderString("Total-Registro");
+//        Assertions.assertNotEquals(Integer.valueOf(0),Integer.valueOf(TotalTexto));
+//        System.out.println("TOTAL"+TotalTexto);
+//        String cuerpoString = respuesta.readEntity(String.class);
+//        JsonReader lector=Json.createReader(new StringReader(cuerpoString));
+//        JsonArray listajson = lector.readArray();
+//        int totalRegistro=listajson.size();
+//        Assertions.assertTrue(totalRegistro>0);
+//        for (int i = 0; i < listajson.size(); i++) {
+//            JsonObject objeto = listajson.getJsonObject(i);
+//            System.out.println(objeto.getInt("idTipoObjeto"));
+//        }
     }
 
 }
