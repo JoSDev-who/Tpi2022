@@ -11,6 +11,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
@@ -22,19 +23,29 @@ import javax.ws.rs.core.Response;
 @Path("tipoobjeto")
 @RequestScoped
 public class TipoObjetoResource {
+
     @Inject
     TipoObjetoBean toBean;
-    
+
     @GET
     @Produces({"application/json; charset=UTF-8"})
-    public Response findAll(){
+    public Response findAll() {
         List<TipoObjeto> registros = toBean.findAll();
-        Long total=toBean.contar();
-        
+        Long total = toBean.contar();
+
         return Response.ok(registros)
                 .header("Total-Registro", total)
                 .build();
-    
-    
+
     }
+
+    @POST
+    public Response crea(TipoObjeto nuevo) {
+        nuevo.setActivo(Boolean.TRUE);
+        toBean.crear(nuevo);
+                return Response.ok(nuevo)
+                .build();
+    }
+    
+    
 }
