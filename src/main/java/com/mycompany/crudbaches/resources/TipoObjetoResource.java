@@ -10,9 +10,12 @@ import com.mycompany.crudbaches.entity.TipoObjeto;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
@@ -43,9 +46,29 @@ public class TipoObjetoResource {
     public Response crea(TipoObjeto nuevo) {
         nuevo.setActivo(Boolean.TRUE);
         toBean.crear(nuevo);
-                return Response.ok(nuevo)
+        return Response.ok(nuevo)
                 .build();
     }
+
+    @PUT
+    public Response modificar(TipoObjeto edit) {
+        
+        edit.setActivo(Boolean.FALSE);
+        
+        toBean.Modificar(edit);
+        return Response.ok(edit)
+                .build();
+
+    }
     
+    @DELETE
+    @Path("{userId}")
+    public Response eliminar(TipoObjeto eliminar,@PathParam("userId") int id){
+        eliminar.setIdTipoObjeto(id);
+        toBean.eliminar(eliminar);
+        return Response.ok(eliminar)
+                .header("iD eliminado: ", id)
+                .build();
+    }
     
 }
