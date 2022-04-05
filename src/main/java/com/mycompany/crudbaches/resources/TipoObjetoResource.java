@@ -44,31 +44,30 @@ public class TipoObjetoResource {
 
     @POST
     public Response crea(TipoObjeto nuevo) {
-        nuevo.setActivo(Boolean.TRUE);
         toBean.crear(nuevo);
         return Response.ok(nuevo)
+                .header("Registro-Creado", nuevo)
                 .build();
     }
 
     @PUT
     public Response modificar(TipoObjeto edit) {
-        
-        edit.setActivo(Boolean.FALSE);
-        
         toBean.Modificar(edit);
         return Response.ok(edit)
+                .header("Modificado", edit)
                 .build();
 
     }
-    
+
     @DELETE
     @Path("{userId}")
-    public Response eliminar(TipoObjeto eliminar,@PathParam("userId") int id){
+    public Response eliminar(@PathParam("userId") int id) {
+        TipoObjeto eliminar = new TipoObjeto();
         eliminar.setIdTipoObjeto(id);
         toBean.eliminar(eliminar);
         return Response.ok(eliminar)
-                .header("iD eliminado: ", id)
+                .header("ID-eliminado", id)
                 .build();
     }
-    
+
 }
