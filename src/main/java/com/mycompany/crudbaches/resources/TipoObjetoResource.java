@@ -8,6 +8,7 @@ package com.mycompany.crudbaches.resources;
 import com.mycompany.crudbaches.control.TipoObjetoBean;
 import com.mycompany.crudbaches.entity.TipoObjeto;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -40,6 +41,12 @@ public class TipoObjetoResource {
                 .header("Total-Registro", total)
                 .build();
 
+    }
+    
+    @GET
+    @Path("contar")
+    public CompletableFuture<Long> contar(){
+        return CompletableFuture.supplyAsync(toBean::contar);
     }
 
     @POST

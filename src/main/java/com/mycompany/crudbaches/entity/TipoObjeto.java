@@ -31,8 +31,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "TipoObjeto.findAll", query = "SELECT t FROM TipoObjeto t"),
     @NamedQuery(name = "TipoObjeto.findByIdTipoObjeto", query = "SELECT t FROM TipoObjeto t WHERE t.idTipoObjeto = :idTipoObjeto"),
     @NamedQuery(name = "TipoObjeto.findByActivo", query = "SELECT t FROM TipoObjeto t WHERE t.activo = :activo"),
-    @NamedQuery(name = "TipoObjeto.findByFechaCreacion", query = "SELECT t FROM TipoObjeto t WHERE t.fechaCreacion = :fechaCreacion")})
-public class TipoObjeto implements Serializable {
+    @NamedQuery(name = "TipoObjeto.findByFechaCreacion", query = "SELECT t FROM TipoObjeto t WHERE t.fechaCreacion = :fechaCreacion")})public class TipoObjeto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
