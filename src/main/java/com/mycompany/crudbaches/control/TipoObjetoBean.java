@@ -35,10 +35,10 @@ public class TipoObjetoBean extends abstractDataAcces<TipoObjeto> implements Ser
 
     @Override
     public Long contar() throws IllegalStateException {
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (Exception e) {
+//        }
         return super.contar(); //To change body of generated methods, choose Tools | Templates.
     }
     
