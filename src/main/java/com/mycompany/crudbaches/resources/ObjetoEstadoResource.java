@@ -5,7 +5,8 @@
  */
 package com.mycompany.crudbaches.resources;
 
-import com.mycompany.crudbaches.control.TipoObjetoBean;
+import com.mycompany.crudbaches.control.ObjetoEstadoBean;
+import com.mycompany.crudbaches.entity.ObjetoEstado;
 import com.mycompany.crudbaches.entity.TipoObjeto;
 import java.io.Serializable;
 import java.util.List;
@@ -26,18 +27,18 @@ import javax.ws.rs.core.Response;
 /**
  *
  * @author whoami
+ * ObjetoEstado
  */
-@Path("tipoobjeto")
+@Path("objetoestado")
 @RequestScoped
-
-public class TipoObjetoResource implements Serializable{
-
-    @Inject
-    TipoObjetoBean toBean;
-
+public class ObjetoEstadoResource implements Serializable {
     
-    public Response findAll() {
-        List<TipoObjeto> registros = toBean.findAll();
+    @Inject
+    ObjetoEstadoBean toBean;
+    
+    
+     public Response findAll() {
+        List<ObjetoEstado> registros = toBean.findAll();
         Long total = toBean.contar();
 
         return Response.ok(registros)
@@ -45,16 +46,15 @@ public class TipoObjetoResource implements Serializable{
                 .build();
 
     }
-
-
-    @GET
+    
+        @GET
     @Path("contar")
     public CompletableFuture<Long> contar() {
         return CompletableFuture.supplyAsync(toBean::contar);
     }
 
     @POST
-    public Response crea(TipoObjeto nuevo) {
+    public Response crea(ObjetoEstado nuevo) {
         toBean.crear(nuevo);
         return Response.ok(nuevo)
                 .header("Registro-Creado", nuevo)
@@ -62,7 +62,7 @@ public class TipoObjetoResource implements Serializable{
     }
 
     @PUT
-    public Response modificar(TipoObjeto edit) {
+    public Response modificar(ObjetoEstado edit) {
         toBean.Modificar(edit);
         return Response.ok(edit)
                 .header("Modificado", edit)
@@ -72,9 +72,9 @@ public class TipoObjetoResource implements Serializable{
 
     @DELETE
     @Path("{userId}")
-    public Response eliminar(@PathParam("userId") int id) {
-        TipoObjeto eliminar = new TipoObjeto();
-        eliminar.setIdTipoObjeto(id);
+    public Response eliminar(@PathParam("userId") Long id) {
+        ObjetoEstado eliminar = new ObjetoEstado();
+        eliminar.setIdObjetoEstado(id);
         toBean.eliminar(eliminar);
         return Response.ok(eliminar)
                 .header("ID-eliminado", id)
@@ -88,7 +88,7 @@ public class TipoObjetoResource implements Serializable{
             @DefaultValue(value = "0") int firts,
             @QueryParam(value = "pagesize")
             @DefaultValue(value = "50") int pagueSize){
-        List<TipoObjeto> registros = toBean.findRange(firts, pagueSize);
+        List<ObjetoEstado> registros = toBean.findRange(firts, pagueSize);
         Long total = toBean.contar();
         return Response.ok(registros)
                 .header("Total-Registro", total)
@@ -99,5 +99,6 @@ public class TipoObjetoResource implements Serializable{
                 .build();
     }
 
-
+    
+    
 }

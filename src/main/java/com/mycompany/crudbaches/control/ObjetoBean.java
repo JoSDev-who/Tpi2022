@@ -6,6 +6,7 @@
 package com.mycompany.crudbaches.control;
 
 import com.mycompany.crudbaches.entity.Objeto;
+import com.mycompany.crudbaches.entity.TipoObjeto;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -53,5 +54,6 @@ public class ObjetoBean extends abstractDataAcces<Objeto> implements Serializabl
         }
         return 0;
     }
+
 
 }
