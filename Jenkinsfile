@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'mvn clean compile test'
+                sh 'mvn test-compile'
             }
         }
         stage('Deploy') {
