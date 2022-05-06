@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven "maven"
+        maven "Tpi2022"
         jdk "jdk11"
     }
 
