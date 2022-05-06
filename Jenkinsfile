@@ -14,17 +14,10 @@ pipeline {
         stage('Build') {
             steps {
                 dir("${JENKINS_HOME}/workspace/BachesPipeTest") {
-                sh 'ls'
+                sh 'mvn -B -DskipTests clean package'
                 }
             }
         }
      }
-    post {
-       always {
-          junit(
-        allowEmptyResults: true,
-        testResults: '*/test-reports/.xml'
-      )
-      }
-   } 
+    
 }
