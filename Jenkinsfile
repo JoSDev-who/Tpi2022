@@ -11,7 +11,7 @@ pipeline {
                 sh 'mvn -Dmaven.test.failure.ignore=true clean package'
             }
         }
-     }
+    
     post {
        always {
           junit(
