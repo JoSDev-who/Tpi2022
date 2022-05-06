@@ -14,7 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir("${JENKINS_HOME}/workspace/BachesPipeTest") {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'ls'
                 }
             }
         }
