@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven "Tpi22"
+        maven "Tpi2022"
         jdk "jdk11"
     }
     stages {
