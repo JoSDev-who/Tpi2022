@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'ls'
+                sh 'mvn clean compile test'
             }
         }
         stage('Deploy') {
