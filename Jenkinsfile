@@ -1,17 +1,24 @@
 pipeline {
     agent any
-
     tools {
-        maven "Tpi2022"
+        maven "MAVEN"
+        jdk "JDK"
     }
-    stages{
-        stage('Build') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/restP']], extensions: [], userRemoteConfigs: [[credentialsId: 'whoamipc', url: 'https://github.com/OM17028/Tpi2022.git']]])
-                sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+    stages {
+        stage('Initialize'){
+            steps{
+                echo "PATH = ${M2_HOME}/bin:${PATH}"
+                echo "M2_HOME = /opt/maven"
             }
         }
-    }
+        stage('Build') {
+            steps {
+                dir("${JENKINS_HOME}/workspace/${ITEM_FULL_NAME}") {
+                sh 'mvn -B -DskipTests clean package'
+                }
+            }
+        }
+     }
     post {
        always {
           junit(
