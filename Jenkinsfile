@@ -17,7 +17,7 @@ pipeline {
                         
                         echo 'Hello from main unix'
                     } else {
-                        bat "call mvn clean"
+                        sh 'mvn -f pom.xml clean test'
                         
                         echo "echo 'Hello from windo'"
                     }
