@@ -7,6 +7,7 @@ pipeline {
                 echo 'build...'
             }
         }
+    }
         stage('Test') {
             steps {
                 if (isUnix()) {
