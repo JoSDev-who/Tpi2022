@@ -6,7 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'build...'
-                mvn test
+                sh mvn test
             }
         }
         stage('Test') {
