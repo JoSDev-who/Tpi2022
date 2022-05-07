@@ -7,7 +7,7 @@ pipeline {
                                   if (isUnix()) {
             echo 'Hello from main unix'
         } else {
-            sh "echo 'Hello from linux'"
+            echo "echo 'Hello from linux'"
         }
                     }
             }
