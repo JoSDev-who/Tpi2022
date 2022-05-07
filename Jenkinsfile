@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-              bat 'call mvn clean compile test'
+              sh 'call mvn clean compile test'
 
             }
         }
