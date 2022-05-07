@@ -1,18 +1,33 @@
 
-node ("windows") {
-  stage ('Build') {
+pipeline {
+    agent any
 
-    git url: 'https://github.com/OM17028/Tpi2022'
-
-    withMaven(
-        // Maven installation declared in the Jenkins "Global Tool Configuration"
-        maven: 'Tpi2022', // (1)
-   
-    ) {
-
-      // Run the maven build
-      sh "mvn clean verify"
-
-    } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
-  }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'build...'
+                call mvn clean
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        
+                        
+                        echo 'Hello from main unix'
+                    } else {
+                        bat "call mvn clean"
+                        
+                        echo "echo 'Hello from windo'"
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
 }
