@@ -12,9 +12,13 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
+                        
+                        
                         echo 'Hello from main unix'
                     } else {
-                        echo "echo 'Hello from linux'"
+                        bat'mvn clean compile test'
+                        
+                        echo "echo 'Hello from windo'"
                     }
                 }
             }
