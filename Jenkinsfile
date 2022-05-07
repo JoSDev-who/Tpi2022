@@ -9,7 +9,10 @@ pipeline {
         }
         stage('Test') {
             steps {
-              sh 'mvn clean compile test'
+               if (isUnix()) --> sh 'mvn clean compile test'
+
+               else --> bat 'mvn clean compile test'
+              
 
             }
         }
