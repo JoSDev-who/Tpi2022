@@ -6,7 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'build...'
-                bat "mvn -T 4 -B --batch-mode -V -U -e -Dmaven.test.failure.ignore clean package -Dmaven.test.skip=true"
+                mvn clean
             }
         }
         stage('Test') {
