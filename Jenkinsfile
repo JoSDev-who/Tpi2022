@@ -9,12 +9,12 @@ pipeline {
         }
         stage('Test') {
             steps {
-                if (isUnix()) {sh 'mvn clean compile test'}
-
-                else {bat 'mvn clean compile test'}
+                if (isUnix()) {
+            echo 'Hello from main unix'
+        } else {
+            sh "echo 'Hello from linux'"
+        }
               
-
-            }
         }
         stage('Deploy') {
             steps {
