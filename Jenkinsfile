@@ -16,7 +16,7 @@ pipeline {
                         
                         echo 'Hello from main unix'
                     } else {
-                        sh 'mvn clean compile test'
+                        bat 'sh mvn clean compile test'
                         
                         echo "echo 'Hello from windo'"
                     }
