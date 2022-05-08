@@ -26,7 +26,7 @@ public class ObjetoBean extends abstractDataAcces<Objeto> implements Serializabl
 
     @Override
     public EntityManager getEntityManager() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em; //To change body of generated methods, choose Tools | Templates.
     }
 
     public ObjetoBean() {
