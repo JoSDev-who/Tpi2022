@@ -11,17 +11,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                script {
-                    if (isUnix()) {
-                        
-                        
-                        echo 'Hello from main unix'
-                    } else {
-                        sh 'mvn -f pom.xml clean test'
-                        
-                        echo "echo 'Hello from windo'"
-                    }
-                }
+        
+                echo 'test'
             }
         }
         stage('Deploy') {
