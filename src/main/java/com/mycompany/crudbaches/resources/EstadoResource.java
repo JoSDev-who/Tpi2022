@@ -30,22 +30,23 @@ import javax.ws.rs.core.Response;
  */
 @Path("estado")
 @RequestScoped
-public class EstadoResource implements Serializable{
-    
+public class EstadoResource implements Serializable {
+
     @Inject
     EstadoBean toBean;
-    
-//     public Response findAll() {
-//        List<Estado> registros = toBean.findAll();
-//        Long total = toBean.contar();
-//
-//        return Response.ok(registros)
-//                .header("Total-Registro", total)
-//                .build();
-//
-//    }
-    
-        @GET
+
+    @GET
+    public Response findAll() {
+        List<Estado> registros = toBean.findAll();
+        Long total = toBean.contar();
+
+        return Response.ok(registros)
+                .header("Total-Registro", total)
+                .build();
+
+    }
+
+    @GET
     @Path("contar")
     public CompletableFuture<Long> contar() {
         return CompletableFuture.supplyAsync(toBean::contar);
@@ -78,26 +79,33 @@ public class EstadoResource implements Serializable{
                 .header("ID-eliminado", id)
                 .build();
     }
-    
+
     @GET
     @Produces({"application/json; charset=UTF-8"})
     public Response findRange(
             @QueryParam(value = "first")
             @DefaultValue(value = "0") int firts,
             @QueryParam(value = "pagesize")
-            @DefaultValue(value = "50") int pagueSize){
+            @DefaultValue(value = "50") int pagueSize) {
         List<Estado> registros = toBean.findRange(firts, pagueSize);
         Long total = toBean.contar();
         return Response.ok(registros)
                 .header("Total-Registro", total)
-//                .header("Access-Control-Allow-Origin", "*")
-//                .header("Access-Control-Allow-Credentials", "true")
-//                .header("Access-Control-Allow-Headers", "origins,content-type,accept,authorization")
-//                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                //                .header("Access-Control-Allow-Origin", "*")
+                //                .header("Access-Control-Allow-Credentials", "true")
+                //                .header("Access-Control-Allow-Headers", "origins,content-type,accept,authorization")
+                //                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                 .build();
     }
+    
+    @GET
+    @Path("{userName}")
+    public Response findNombre(@PathParam("userName") String nombre){
+        List<Estado> lista;
+        
+        lista=toBean.findNombre(nombre);
+        Long total = toBean.contar();
+        return Response.ok(lista).header("Total-Registro", total).build();
+    }
 
-    
-    
-    
 }
