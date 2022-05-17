@@ -66,31 +66,31 @@ public class ObjetoResourceIT {
     @ArquillianResource
     URL url;
 
-//    @Test
-//    @RunAsClient
-//    @Order(4)
-//    public void testFindAll() {
-//        System.out.println("findAllObjeto");
-//        
-//        int resultadoEsperado = 200;
-//        Client cliente = ClientBuilder.newClient();
-//        WebTarget target = cliente.target(url.toString() + "resources/");
-//        Response respuesta = target.path("objeto").request("application/json").get();
-//        assertEquals(resultadoEsperado, respuesta.getStatus());
-//        String totalTexto = respuesta.getHeaderString("Total-Registro");
-//        assertNotEquals(Integer.valueOf(0), Integer.valueOf(totalTexto));
-//        String cuerpoString = respuesta.readEntity(String.class);
-//        JsonReader lector = Json.createReader(new StringReader(cuerpoString));
-//        JsonArray listaJson = lector.readArray();
-//        int totalRegistros = listaJson.size();
-//        assertTrue(totalRegistros > 0);
-//        System.out.println("\n\n");
-//        System.out.println("\n\n");
-//        for (int i = 0; i < listaJson.size(); i++) {
-//            JsonObject objeto = listaJson.getJsonObject(i);
-//            System.out.println("ID: " + objeto.getInt("idObjeto") + " Activo:" + objeto.getBoolean("activo"));
-//        }
-//    }
+    @Test
+    @RunAsClient
+    @Order(4)
+    public void testFindAll() {
+        System.out.println("findAllObjeto");
+        
+        int resultadoEsperado = 200;
+        Client cliente = ClientBuilder.newClient();
+        WebTarget target = cliente.target(url.toString() + "resources/");
+        Response respuesta = target.path("objeto").request("application/json").get();
+        assertEquals(resultadoEsperado, respuesta.getStatus());
+        String totalTexto = respuesta.getHeaderString("Total-Registro");
+        assertNotEquals(Integer.valueOf(0), Integer.valueOf(totalTexto));
+        String cuerpoString = respuesta.readEntity(String.class);
+        JsonReader lector = Json.createReader(new StringReader(cuerpoString));
+        JsonArray listaJson = lector.readArray();
+        int totalRegistros = listaJson.size();
+        assertTrue(totalRegistros > 0);
+        System.out.println("\n\n");
+        System.out.println("\n\n");
+        for (int i = 0; i < listaJson.size(); i++) {
+            JsonObject objeto = listaJson.getJsonObject(i);
+            System.out.println("ID: " + objeto.getInt("idObjeto") );
+        }
+    }
 
     @Test
     @RunAsClient
