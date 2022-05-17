@@ -40,6 +40,16 @@ public class ObjetoResource implements Serializable{
     public CompletableFuture<Long> contar() {
         return CompletableFuture.supplyAsync(toBean::contar);
     }
+        @GET
+    public Response findAll() {
+        List<Objeto> registros = toBean.findAll();
+        Long total = toBean.contar();
+
+        return Response.ok(registros)
+                .header("Total-Registro", total)
+                .build();
+
+    }
 
     @POST
     public Response crea(Objeto nuevo) {

@@ -35,7 +35,7 @@ public class TipoObjetoResource implements Serializable{
     @Inject
     TipoObjetoBean toBean;
 
-    
+    @GET
     public Response findAll() {
         List<TipoObjeto> registros = toBean.findAll();
         Long total = toBean.contar();

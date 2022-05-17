@@ -36,7 +36,7 @@ public class ObjetoEstadoResource implements Serializable {
     @Inject
     ObjetoEstadoBean toBean;
     
-    
+    @GET
      public Response findAll() {
         List<ObjetoEstado> registros = toBean.findAll();
         Long total = toBean.contar();
